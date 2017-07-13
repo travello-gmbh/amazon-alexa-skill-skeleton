@@ -1,0 +1,48 @@
+<?php
+/**
+ * PHP skeleton application for Amazon Alexa Skills
+ *
+ * @author     Ralf Eggert <ralf@travello.de>
+ * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
+ * @link       https://github.com/travello-gmbh/amazon-alexa-skill-skeleton
+ * @link       https://www.travello.de/
+ */
+
+$this->headTitle()->setSeparator(' - ')->setAutoEscape(false);
+$this->headTitle('Travello Skill Server');
+$this->headMeta()->appendHttpEquiv('X-UA-Compatible', 'IE=edge');
+$this->headMeta()->appendName(
+    'viewport', 'width=device-width, initial-scale=1'
+);
+$this->headLink()->prependStylesheet(
+    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css'
+);
+$this->headLink()->prependStylesheet(
+    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+);
+$this->headLink()->appendStylesheet('/assets/custom/css/styles.css');
+
+$this->inlineScript()->prependFile(
+    'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js',
+    'text/javascript'
+);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+    <?= $this->headTitle() . "\n"; ?>
+    <?= $this->headMeta() . "\n"; ?>
+    <?= $this->headLink() . "\n"; ?>
+    <?= $this->headScript() . "\n"; ?>
+    <?= $this->headStyle() . "\n"; ?>
+</head>
+<body>
+<div>
+  <main class="container">
+      <?= $this->content ?>
+  </main>
+</div>
+<?= $this->inlineScript(); ?>
+</body>
+</html>

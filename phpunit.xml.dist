@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="Application\\Tests">
+            <directory>./module/Application/test</directory>
+        </testsuite>
+        <testsuite name="Hello\\Tests">
+            <directory>./module/Hello/test</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">./module/Application/src</directory>
+            <directory suffix=".php">./module/Hello/src</directory>
+            <directory suffix=".php">./module/Boredom/src</directory>
+        </whitelist>
+    </filter>
+
+    <php>
+        <const name="PROJECT_ROOT" value="." />
+    </php>
+</phpunit>

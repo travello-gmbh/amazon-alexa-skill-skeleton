@@ -1,0 +1,54 @@
+{
+  "name": "travello-gmbh/amazon-alexa-skill-skeleton",
+  "description": "PHP skeleton application for Amazon Alexa Skills ",
+  "license": "The MIT License (MIT)",
+  "type": "project",
+  "homepage": "https://www.travello.audio",
+  "config": {
+    "sort-packages": true
+  },
+  "require": {
+    "php": "^7.0",
+    "ext-curl": "*",
+    "curl/curl": "^1.6",
+    "glenscott/url-normalizer": "^1.4",
+    "roave/security-advisories": "dev-master",
+    "travello-gmbh/amazon-alexa-skill-library": "dev-develop",
+    "zendframework/zend-component-installer": "^1.0 || ^0.7.0",
+    "zendframework/zend-config-aggregator": "^0.2.0",
+    "zendframework/zend-expressive": "^2.0",
+    "zendframework/zend-expressive-helpers": "^3.0.1",
+    "zendframework/zend-expressive-zendrouter": "^2.0.1",
+    "zendframework/zend-expressive-zendviewrenderer": "^1.3",
+    "zendframework/zend-servicemanager": "^3.3",
+    "zendframework/zend-stdlib": "^3.1"
+  },
+  "require-dev": {
+    "filp/whoops": "^2.1",
+    "phpunit/phpunit": "^6.0",
+    "squizlabs/php_codesniffer": "^2.3",
+    "zendframework/zend-expressive-tooling": "^0.3.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Application\\": "module/Application/src/",
+      "Hello\\": "module/Hello/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ApplicationTest\\": "module/Application/test/",
+      "HelloTest\\": "module/Hello/test/"
+    }
+  },
+  "scripts": {
+    "check": [
+      "@cs-check",
+      "@test"
+    ],
+    "cs-check": "phpcs module/",
+    "test": "phpunit --colors=always",
+    "test-coverage": "phpunit --colors=always --coverage-html html/coverage/",
+    "upload-coverage": "coveralls -v"
+  }
+}
