@@ -67,7 +67,7 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'Hello' => [__DIR__ . '/../templates/Hello'],
+                'hello' => [__DIR__ . '/../templates/hello'],
             ],
         ];
     }

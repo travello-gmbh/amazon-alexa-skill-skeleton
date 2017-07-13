@@ -27,7 +27,6 @@ $aggregator = new ConfigAggregator(
         TravelloAlexaLibrary\ConfigProvider::class,
 
         Hello\ConfigProvider::class,
-        Boredom\ConfigProvider::class,
         Application\ConfigProvider::class,
 
         new ArrayProvider($cacheConfig),

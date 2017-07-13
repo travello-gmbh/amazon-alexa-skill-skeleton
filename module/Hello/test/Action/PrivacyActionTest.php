@@ -36,7 +36,7 @@ class PrivacyActionTest extends TestCase
         $template = $this->prophesize(TemplateRendererInterface::class);
 
         /** @var MethodProphecy $renderMethod */
-        $renderMethod = $template->render('Hello::privacy', []);
+        $renderMethod = $template->render('hello::privacy', []);
         $renderMethod->shouldBeCalled()->willReturn('Template');
 
         $privacyAction = new PrivacyAction($template->reveal());

@@ -16,7 +16,6 @@
         <whitelist>
             <directory suffix=".php">./module/Application/src</directory>
             <directory suffix=".php">./module/Hello/src</directory>
-            <directory suffix=".php">./module/Boredom/src</directory>
         </whitelist>
     </filter>
 

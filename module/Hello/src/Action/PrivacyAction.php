@@ -45,7 +45,7 @@ class PrivacyAction implements ServerMiddlewareInterface
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         return new HtmlResponse(
-            $this->template->render('Hello::privacy', [])
+            $this->template->render('hello::privacy', [])
         );
     }
 }
