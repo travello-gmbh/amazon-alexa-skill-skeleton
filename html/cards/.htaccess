@@ -1,2 +1,2 @@
-Header add Access-Control-Allow-Origin "http://ask-ifr-download.s3.amazonaws.com"
+Header add Access-Control-Allow-Origin "https://ask-ifr-download.s3.amazonaws.com"
 Header add Access-Control-Allow-Methods "GET"
