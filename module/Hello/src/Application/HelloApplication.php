@@ -56,6 +56,13 @@ class HelloApplication extends AbstractAlexaApplication
     }
 
     /**
+     * Reset the session attributes
+     */
+    protected function resetSessionAttributes()
+    {
+    }
+
+    /**
      * Handle custom application intents
      *
      * @return bool

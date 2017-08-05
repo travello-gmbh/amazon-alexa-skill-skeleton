@@ -10,8 +10,8 @@
 
 namespace HelloTest\Application\Helper;
 
-use PHPUnit\Framework\TestCase;
 use Hello\Application\Helper\HelloTextHelper;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class HelloTextHelperTest
@@ -26,7 +26,9 @@ class HelloTextHelperTest extends TestCase
     public function testHelloMessage()
     {
         $helloTextHelper = new HelloTextHelper(
-            include __DIR__ . '/TestAssets/test.common.texts.php'
+            [
+                'en-US' => include __DIR__ . '/TestAssets/test.common.texts.php'
+            ]
         );
 
         $helloMessage = $helloTextHelper->getHelloMessage();
@@ -42,7 +44,9 @@ class HelloTextHelperTest extends TestCase
     public function testHelloTitle()
     {
         $helloTextHelper = new HelloTextHelper(
-            include __DIR__ . '/TestAssets/test.common.texts.php'
+            [
+                'en-US' => include __DIR__ . '/TestAssets/test.common.texts.php'
+            ]
         );
 
         $helloTitle = $helloTextHelper->getHelloTitle();
