@@ -16,6 +16,8 @@ return [
     'alexaHelpMessage'     => 'Hier den Hilfetext platzieren',
     'alexaStopTitle'       => 'Danke',
     'alexaStopMessage'     => 'Danke und bis bald',
+    'alexaCancelTitle'     => 'Abbrechen',
+    'alexaCancelMessage'   => 'Abbrechen Nachricht',
     'alexaHelloTitle'      => 'Hallo dies ist der Titel',
     'alexaHelloMessage'    => 'Hallo dies ist die Nachricht für den Hallo Intent.',
 ];
