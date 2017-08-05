@@ -21,11 +21,11 @@ class HelloTextHelper extends AbstractTextHelper implements HelloTextHelperInter
 {
     public function getHelloMessage(): string
     {
-        return $this->commonTexts['alexaHelloMessage'];
+        return $this->commonTexts[$this->locale]['alexaHelloMessage'];
     }
 
     public function getHelloTitle(): string
     {
-        return $this->commonTexts['alexaHelloTitle'];
+        return $this->commonTexts[$this->locale]['alexaHelloTitle'];
     }
 }

@@ -10,13 +10,13 @@
 
 namespace HelloTest\Application;
 
+use Hello\Application\HelloApplication;
+use Hello\Application\Helper\HelloTextHelper;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\MethodProphecy;
 use Prophecy\Prophecy\ObjectProphecy;
 use TravelloAlexaLibrary\Request\Certificate\CertificateValidatorInterface;
 use TravelloAlexaLibrary\Request\RequestType\RequestTypeFactory;
-use Hello\Application\Helper\HelloTextHelper;
-use Hello\Application\HelloApplication;
 
 /**
  * Class HelloApplicationTest
@@ -68,13 +68,13 @@ class HelloApplicationTest extends TestCase
 
         /** @var ObjectProphecy|HelloTextHelper $helloTextHelper */
         $helloTextHelper = $this->prophesize(HelloTextHelper::class);
+        $helloTextHelper->setLocale('de-DE')->shouldBeCalled();
         $helloTextHelper->getRepromptMessage()->shouldBeCalled()->willReturn(
             'reprompt message'
         );
-        $helloTextHelper->getHelloMessage()->shouldBeCalled()
-            ->willReturn(
-                'greet message'
-            );
+        $helloTextHelper->getHelloMessage()->shouldBeCalled()->willReturn(
+            'greet message'
+        );
         $helloTextHelper->getHelloTitle()->shouldBeCalled()->willReturn(
             'greet title'
         );
@@ -160,6 +160,7 @@ class HelloApplicationTest extends TestCase
 
         /** @var ObjectProphecy|HelloTextHelper $helloTextHelper */
         $helloTextHelper = $this->prophesize(HelloTextHelper::class);
+        $helloTextHelper->setLocale('de-DE')->shouldBeCalled();
         $helloTextHelper->getRepromptMessage()->shouldBeCalled()->willReturn(
             'reprompt message'
         );
@@ -251,6 +252,7 @@ class HelloApplicationTest extends TestCase
 
         /** @var ObjectProphecy|HelloTextHelper $helloTextHelper */
         $helloTextHelper = $this->prophesize(HelloTextHelper::class);
+        $helloTextHelper->setLocale('de-DE')->shouldBeCalled();
         $helloTextHelper->getRepromptMessage()->shouldBeCalled()->willReturn(
             'reprompt message'
         );

@@ -30,7 +30,11 @@ class HelloTextHelperFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): HelloTextHelper
     {
         return new HelloTextHelper(
-            include PROJECT_ROOT . '/data/texts/hello.common.texts.php'
+            [
+                'en-US' => include PROJECT_ROOT . '/data/texts/hello.common.texts.en-US.php',
+                'en-UK' => include PROJECT_ROOT . '/data/texts/hello.common.texts.en-UK.php',
+                'de-DE' => include PROJECT_ROOT . '/data/texts/hello.common.texts.de-DE.php',
+            ]
         );
     }
 }

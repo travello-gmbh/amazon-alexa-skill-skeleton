@@ -16,6 +16,8 @@ return [
     'alexaHelpMessage'     => 'Here place your help text',
     'alexaStopTitle'       => 'Thanks',
     'alexaStopMessage'     => 'Thanks and see you soon',
+    'alexaCancelTitle'     => 'Cancel',
+    'alexaCancelMessage'   => 'Cancel message',
     'alexaHelloTitle'      => 'Hello this is the title',
     'alexaHelloMessage'    => 'Hello this is the message for the hello intent.',
 ];
