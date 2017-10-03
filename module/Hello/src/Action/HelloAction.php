@@ -48,10 +48,6 @@ class HelloAction implements ServerMiddlewareInterface
      */
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
-        $this->helloApplication->setAlexaRequest($request->getAttribute(AlexaRequest::NAME));
-
-        $this->helloApplication->setCertificateValidator($request->getAttribute(CertificateValidator::NAME));
-
         try {
             $data = $this->helloApplication->execute();
 

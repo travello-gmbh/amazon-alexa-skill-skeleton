@@ -10,16 +10,21 @@
 
 namespace Hello;
 
-use Hello\Action\PrivacyAction;
-use Hello\Action\PrivacyActionFactory;
+use Application\Intent\AbstractIntentFactory;
 use Hello\Action\HelloAction;
 use Hello\Action\HelloActionFactory;
-use Hello\Application\Helper\HelloTextHelper;
-use Hello\Application\Helper\HelloTextHelperFactory;
+use Hello\Action\PrivacyAction;
+use Hello\Action\PrivacyActionFactory;
 use Hello\Application\HelloApplication;
 use Hello\Application\HelloApplicationFactory;
+use Hello\Application\Helper\HelloTextHelper;
+use Hello\Application\Helper\HelloTextHelperFactory;
 use Hello\Config\RouterDelegatorFactory;
+use Hello\Intent\HelloIntent;
+use Hello\Intent\IntentManager;
+use Hello\Intent\IntentManagerFactory;
 use Zend\Expressive\Application;
+use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
  * Class ConfigProvider
@@ -34,8 +39,9 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'dependencies' => $this->getDependencies(),
-            'templates'    => $this->getTemplates(),
+            'dependencies'  => $this->getDependencies(),
+            'templates'     => $this->getTemplates(),
+            'hello_intents' => $this->getIntents(),
         ];
     }
 
@@ -51,11 +57,12 @@ class ConfigProvider
                 ],
             ],
             'factories'  => [
-                HelloAction::class => HelloActionFactory::class,
+                HelloAction::class   => HelloActionFactory::class,
                 PrivacyAction::class => PrivacyActionFactory::class,
 
                 HelloApplication::class => HelloApplicationFactory::class,
                 HelloTextHelper::class  => HelloTextHelperFactory::class,
+                IntentManager::class    => IntentManagerFactory::class,
             ],
         ];
     }
@@ -68,6 +75,22 @@ class ConfigProvider
         return [
             'paths' => [
                 'hello' => [__DIR__ . '/../templates/hello'],
+            ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getIntents(): array
+    {
+        return [
+            'aliases' => [
+                HelloIntent::NAME => HelloIntent::class,
+            ],
+
+            'factories' => [
+                HelloIntent::class => AbstractIntentFactory::class,
             ],
         ];
     }

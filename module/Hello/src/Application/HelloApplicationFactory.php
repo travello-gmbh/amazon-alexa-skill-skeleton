@@ -10,8 +10,12 @@
 
 namespace Hello\Application;
 
-use Interop\Container\ContainerInterface;
 use Hello\Application\Helper\HelloTextHelper;
+use Hello\Intent\IntentManager;
+use Interop\Container\ContainerInterface;
+use TravelloAlexaLibrary\Request\AlexaRequest;
+use TravelloAlexaLibrary\Request\Certificate\CertificateValidator;
+use TravelloAlexaLibrary\Response\AlexaResponse;
 use Zend\ServiceManager\Factory\FactoryInterface;
 
 /**
@@ -30,8 +34,14 @@ class HelloApplicationFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null): HelloApplication
     {
-        $textHelper = $container->get(HelloTextHelper::class);
+        $alexaResponse = $container->get(AlexaResponse::class);
+        $intentManager = $container->get(IntentManager::class);
+        $textHelper    = $container->get(HelloTextHelper::class);
 
-        return new HelloApplication($textHelper);
+        $helloApplication = new HelloApplication($alexaResponse, $intentManager, $textHelper);
+        $helloApplication->setAlexaRequest($container->get(AlexaRequest::class));
+        $helloApplication->setCertificateValidator($container->get(CertificateValidator::class));
+
+        return $helloApplication;
     }
 }

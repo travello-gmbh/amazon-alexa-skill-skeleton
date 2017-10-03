@@ -10,11 +10,8 @@
 
 namespace Hello\Application;
 
-use TravelloAlexaLibrary\Application\AbstractAlexaApplication;
-use TravelloAlexaLibrary\Request\RequestType\IntentRequestType;
-use TravelloAlexaLibrary\Response\Card\Standard;
-use TravelloAlexaLibrary\Response\OutputSpeech\SSML;
 use Hello\Application\Helper\HelloTextHelperInterface;
+use TravelloAlexaLibrary\Application\AbstractAlexaApplication;
 
 /**
  * Class HelloApplication
@@ -60,59 +57,5 @@ class HelloApplication extends AbstractAlexaApplication
      */
     protected function resetSessionAttributes()
     {
-    }
-
-    /**
-     * Handle custom application intents
-     *
-     * @return bool
-     */
-    protected function handleIntentRequest(): bool
-    {
-        /** @var IntentRequestType $intentRequest */
-        $intentRequest = $this->alexaRequest->getRequest();
-
-        switch ($intentRequest->getIntent()->getName()) {
-            case 'HelloIntent':
-                return $this->helloIntent();
-            // no break
-
-            case 'AMAZON.StopIntent':
-                return $this->stopIntent();
-            // no break
-
-            case 'AMAZON.CancelIntent':
-                return $this->cancelIntent();
-            // no break
-
-            case 'AMAZON.HelpIntent':
-            default:
-                return $this->helpIntent();
-        }
-    }
-
-    /**
-     * Handle the greet intent
-     *
-     * @return bool
-     */
-    private function helloIntent(): bool
-    {
-        $helloMessage = $this->textHelper->getHelloMessage();
-
-        $this->alexaResponse->setOutputSpeech(
-            new SSML($helloMessage)
-        );
-
-        $this->alexaResponse->setCard(
-            new Standard(
-                $this->textHelper->getHelloTitle(),
-                $helloMessage,
-                $this->smallImageUrl,
-                $this->largeImageUrl
-            )
-        );
-
-        return true;
     }
 }

@@ -8,6 +8,7 @@
  * @link       https://www.travello.de/
  */
 
+use TravelloAlexaLibrary\Response\AlexaResponse;
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Container\ErrorHandlerFactory;

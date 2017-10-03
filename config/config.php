@@ -24,7 +24,7 @@ $aggregator = new ConfigAggregator(
         Zend\Router\ConfigProvider::class,
         Zend\Validator\ConfigProvider::class,
 
-        TravelloAlexaLibrary\ConfigProvider::class,
+        TravelloAlexaZf\ConfigProvider::class,
 
         Hello\ConfigProvider::class,
         Application\ConfigProvider::class,
