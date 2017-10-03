@@ -49,8 +49,6 @@ class HelloIntent extends AbstractIntent
             new Standard($title, $message, $smallImageUrl, $largeImageUrl)
         );
 
-        $this->getAlexaResponse()->endSession();
-
         return $this->getAlexaResponse();
     }
 }
