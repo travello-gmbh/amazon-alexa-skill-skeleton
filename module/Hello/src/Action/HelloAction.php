@@ -2,22 +2,20 @@
 /**
  * PHP skeleton application for Amazon Alexa Skills
  *
- * @author     Ralf Eggert <ralf@travello.de>
+ * @author     Ralf Eggert <ralf@travello.audio>
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  * @link       https://github.com/travello-gmbh/amazon-alexa-skill-skeleton
- * @link       https://www.travello.de/
+ * @link       https://www.travello.audio/
  */
 
 namespace Hello\Action;
 
 use Exception;
+use Hello\Application\HelloApplication;
 use Interop\Http\ServerMiddleware\DelegateInterface;
 use Interop\Http\ServerMiddleware\MiddlewareInterface as ServerMiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use TravelloAlexaLibrary\Request\AlexaRequest;
-use TravelloAlexaLibrary\Request\Certificate\CertificateValidator;
 use TravelloAlexaLibrary\Request\Exception\BadRequest;
-use Hello\Application\HelloApplication;
 use Zend\Diactoros\Response\JsonResponse;
 
 /**
