@@ -10,9 +10,10 @@
 
 namespace Hello\Config;
 
-use Interop\Container\ContainerInterface;
-use Hello\Action\PrivacyAction;
 use Hello\Action\HelloAction;
+use Hello\Action\PrivacyAction;
+use Hello\Application\HelloApplication;
+use Interop\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
 
@@ -40,7 +41,8 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
             '/hello',
             HelloAction::class,
             'hello'
-        );
+        )->setOptions(['defaults' => ['skillName' => HelloApplication::NAME]]);
+
         $application->route(
             '/hello/privacy',
             PrivacyAction::class,

@@ -49,19 +49,6 @@ class HelloActionTest extends TestCase
         /** @var ObjectProphecy|HelloApplication $helloApplication */
         $helloApplication = $this->prophesize(HelloApplication::class);
 
-        /** @var MethodProphecy $setAlexaRequestMethod */
-        $setAlexaRequestMethod = $helloApplication->setAlexaRequest(
-            $alexaRequest->reveal()
-        );
-        $setAlexaRequestMethod->shouldBeCalled();
-
-        /** @var MethodProphecy $setCertificateValidatorMethod */
-        $setCertificateValidatorMethod = $helloApplication
-            ->setCertificateValidator(
-                $certificateValidator->reveal()
-            );
-        $setCertificateValidatorMethod->shouldBeCalled();
-
         /** @var MethodProphecy $executeMethod */
         $executeMethod = $helloApplication->execute();
         $executeMethod->shouldBeCalled()->willThrow(
@@ -113,19 +100,6 @@ class HelloActionTest extends TestCase
         /** @var ObjectProphecy|HelloApplication $helloApplication */
         $helloApplication = $this->prophesize(HelloApplication::class);
 
-        /** @var MethodProphecy $setAlexaRequestMethod */
-        $setAlexaRequestMethod = $helloApplication->setAlexaRequest(
-            $alexaRequest->reveal()
-        );
-        $setAlexaRequestMethod->shouldBeCalled();
-
-        /** @var MethodProphecy $setCertificateValidatorMethod */
-        $setCertificateValidatorMethod = $helloApplication
-            ->setCertificateValidator(
-                $certificateValidator->reveal()
-            );
-        $setCertificateValidatorMethod->shouldBeCalled();
-
         /** @var MethodProphecy $executeMethod */
         $executeMethod = $helloApplication->execute();
         $executeMethod->shouldBeCalled()->willThrow(
@@ -176,19 +150,6 @@ class HelloActionTest extends TestCase
 
         /** @var ObjectProphecy|HelloApplication $helloApplication */
         $helloApplication = $this->prophesize(HelloApplication::class);
-
-        /** @var MethodProphecy $setAlexaRequestMethod */
-        $setAlexaRequestMethod = $helloApplication->setAlexaRequest(
-            $alexaRequest->reveal()
-        );
-        $setAlexaRequestMethod->shouldBeCalled();
-
-        /** @var MethodProphecy $setCertificateValidatorMethod */
-        $setCertificateValidatorMethod = $helloApplication
-            ->setCertificateValidator(
-                $certificateValidator->reveal()
-            );
-        $setCertificateValidatorMethod->shouldBeCalled();
 
         /** @var MethodProphecy $executeMethod */
         $executeMethod = $helloApplication->execute();

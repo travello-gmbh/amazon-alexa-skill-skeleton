@@ -11,6 +11,11 @@
 namespace Application\Config;
 
 use Interop\Container\ContainerInterface;
+use TravelloAlexaZf\Middleware\CheckApplicationMiddleware;
+use TravelloAlexaZf\Middleware\ConfigureSkillMiddleware;
+use TravelloAlexaZf\Middleware\LogAlexaRequestMiddleware;
+use TravelloAlexaZf\Middleware\SetLocaleMiddleware;
+use TravelloAlexaZf\Middleware\ValidateCertificateMiddleware;
 use Zend\Expressive\Application;
 use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
@@ -44,6 +49,11 @@ class PipelineDelegatorFactory implements DelegatorFactoryInterface
         $application->pipe(ErrorHandler::class);
 
         $application->pipeRoutingMiddleware();
+        $application->pipe(ConfigureSkillMiddleware::class);
+        $application->pipe(LogAlexaRequestMiddleware::class);
+        $application->pipe(CheckApplicationMiddleware::class);
+        $application->pipe(ValidateCertificateMiddleware::class);
+        $application->pipe(SetLocaleMiddleware::class);
         $application->pipe(ImplicitHeadMiddleware::class);
         $application->pipe(ImplicitOptionsMiddleware::class);
         $application->pipeDispatchMiddleware();

@@ -9,15 +9,15 @@
  */
 
 return [
-    'alexaLaunchTitle'     => 'Hallo',
-    'alexaLaunchMessage'   => 'Hallo und Willkommen',
-    'alexaRepromptMessage' => 'Reprompt',
-    'alexaHelpTitle'       => 'Hilfe',
-    'alexaHelpMessage'     => 'Hier den Hilfetext platzieren',
-    'alexaStopTitle'       => 'Danke',
-    'alexaStopMessage'     => 'Danke und bis bald',
-    'alexaCancelTitle'     => 'Abbrechen',
-    'alexaCancelMessage'   => 'Abbrechen Nachricht',
-    'alexaHelloTitle'      => 'Hallo dies ist der Titel',
-    'alexaHelloMessage'    => 'Hallo dies ist die Nachricht für den Hallo Intent.',
+    'launchTitle'     => 'Hallo',
+    'launchMessage'   => 'Hallo und Willkommen',
+    'repromptMessage' => 'Reprompt',
+    'helpTitle'       => 'Hilfe',
+    'helpMessage'     => 'Hier den Hilfetext platzieren',
+    'stopTitle'       => 'Danke',
+    'stopMessage'     => 'Danke und bis bald',
+    'cancelTitle'     => 'Abbrechen',
+    'cancelMessage'   => 'Abbrechen Nachricht',
+    'helloTitle'      => 'Hallo dies ist der Titel',
+    'helloMessage'    => 'Hallo dies ist die Nachricht für den Hallo Intent.',
 ];

@@ -9,15 +9,15 @@
  */
 
 return [
-    'alexaLaunchTitle'     => 'Hello',
-    'alexaLaunchMessage'   => 'Hello and Welcome',
-    'alexaRepromptMessage' => 'Reprompt',
-    'alexaHelpTitle'       => 'Help',
-    'alexaHelpMessage'     => 'Here place your help text',
-    'alexaStopTitle'       => 'Thanks',
-    'alexaStopMessage'     => 'Thanks and see you soon',
-    'alexaCancelTitle'     => 'Cancel',
-    'alexaCancelMessage'   => 'Cancel message',
-    'alexaHelloTitle'      => 'Hello this is the title',
-    'alexaHelloMessage'    => 'Hello this is the message for the hello intent.',
+    'launchTitle'     => 'Hello',
+    'launchMessage'   => 'Hello and Welcome',
+    'repromptMessage' => 'Reprompt',
+    'helpTitle'       => 'Help',
+    'helpMessage'     => 'Here place your help text',
+    'stopTitle'       => 'Thanks',
+    'stopMessage'     => 'Thanks and see you soon',
+    'cancelTitle'     => 'Cancel',
+    'cancelMessage'   => 'Cancel message',
+    'helloTitle'      => 'Hello this is the title',
+    'helloMessage'    => 'Hello this is the message for the hello intent.',
 ];

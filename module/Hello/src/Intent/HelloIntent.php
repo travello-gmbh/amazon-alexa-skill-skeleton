@@ -10,8 +10,6 @@
 
 namespace Hello\Intent;
 
-use Hello\Application\Helper\HelloTextHelper;
-use TravelloAlexaLibrary\Application\Helper\TextHelperInterface;
 use TravelloAlexaLibrary\Intent\AbstractIntent;
 use TravelloAlexaLibrary\Response\AlexaResponse;
 use TravelloAlexaLibrary\Response\Card\Standard;
@@ -27,19 +25,17 @@ class HelloIntent extends AbstractIntent
     const NAME = 'HelloIntent';
 
     /**
-     * @param TextHelperInterface|HelloTextHelper $textHelper
-     * @param string                              $smallImageUrl
-     * @param string                              $largeImageUrl
+     * @param string $smallImageUrl
+     * @param string $largeImageUrl
      *
      * @return AlexaResponse
      */
     public function handle(
-        TextHelperInterface $textHelper,
         string $smallImageUrl,
         string $largeImageUrl
     ): AlexaResponse {
-        $title   = $textHelper->getHelloTitle();
-        $message = $textHelper->getHelloMessage();
+        $title   = $this->getTextHelper()->getHelloTitle();
+        $message = $this->getTextHelper()->getHelloMessage();
 
         $this->getAlexaResponse()->setOutputSpeech(
             new SSML($message)
