@@ -10,10 +10,10 @@
 
 namespace Hello\Config;
 
-use Hello\Action\HelloAction;
-use Hello\Action\PrivacyAction;
 use Hello\Application\HelloApplication;
 use Interop\Container\ContainerInterface;
+use TravelloAlexaZf\Action\HtmlPageAction;
+use TravelloAlexaZf\Action\SkillAction;
 use Zend\Expressive\Application;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
 
@@ -37,18 +37,14 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
         /** @var Application $application */
         $application = $callback();
 
-        $application->post(
-            '/hello',
-            HelloAction::class,
-            'hello'
-        )->setOptions(['defaults' => ['skillName' => HelloApplication::NAME]]);
+        $application->post('/hello', SkillAction::class, 'hello')
+            ->setOptions(['defaults' => ['skillName' => HelloApplication::NAME]]);
 
-        $application->route(
-            '/hello/privacy',
-            PrivacyAction::class,
-            ['GET', 'POST'],
-            'hello-privacy'
-        );
+        $application->get('/hello/privacy', HtmlPageAction::class, 'hello-privacy')
+            ->setOptions(['defaults' => ['template' => 'hello::privacy']]);
+
+        $application->get('/hello/terms', HtmlPageAction::class, 'hello-terms')
+            ->setOptions(['defaults' => ['template' => 'hello::terms']]);
 
         return $application;
     }
