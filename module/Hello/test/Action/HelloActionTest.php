@@ -2,10 +2,10 @@
 /**
  * PHP skeleton application for Amazon Alexa Skills
  *
- * @author     Ralf Eggert <ralf@travello.de>
+ * @author     Ralf Eggert <ralf@travello.audio>
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  * @link       https://github.com/travello-gmbh/amazon-alexa-skill-skeleton
- * @link       https://www.travello.de/
+ * @link       https://www.travello.audio/
  */
 
 namespace HelloTest\Action;
@@ -48,19 +48,6 @@ class HelloActionTest extends TestCase
 
         /** @var ObjectProphecy|HelloApplication $helloApplication */
         $helloApplication = $this->prophesize(HelloApplication::class);
-
-        /** @var MethodProphecy $setAlexaRequestMethod */
-        $setAlexaRequestMethod = $helloApplication->setAlexaRequest(
-            $alexaRequest->reveal()
-        );
-        $setAlexaRequestMethod->shouldBeCalled();
-
-        /** @var MethodProphecy $setCertificateValidatorMethod */
-        $setCertificateValidatorMethod = $helloApplication
-            ->setCertificateValidator(
-                $certificateValidator->reveal()
-            );
-        $setCertificateValidatorMethod->shouldBeCalled();
 
         /** @var MethodProphecy $executeMethod */
         $executeMethod = $helloApplication->execute();
@@ -113,19 +100,6 @@ class HelloActionTest extends TestCase
         /** @var ObjectProphecy|HelloApplication $helloApplication */
         $helloApplication = $this->prophesize(HelloApplication::class);
 
-        /** @var MethodProphecy $setAlexaRequestMethod */
-        $setAlexaRequestMethod = $helloApplication->setAlexaRequest(
-            $alexaRequest->reveal()
-        );
-        $setAlexaRequestMethod->shouldBeCalled();
-
-        /** @var MethodProphecy $setCertificateValidatorMethod */
-        $setCertificateValidatorMethod = $helloApplication
-            ->setCertificateValidator(
-                $certificateValidator->reveal()
-            );
-        $setCertificateValidatorMethod->shouldBeCalled();
-
         /** @var MethodProphecy $executeMethod */
         $executeMethod = $helloApplication->execute();
         $executeMethod->shouldBeCalled()->willThrow(
@@ -176,19 +150,6 @@ class HelloActionTest extends TestCase
 
         /** @var ObjectProphecy|HelloApplication $helloApplication */
         $helloApplication = $this->prophesize(HelloApplication::class);
-
-        /** @var MethodProphecy $setAlexaRequestMethod */
-        $setAlexaRequestMethod = $helloApplication->setAlexaRequest(
-            $alexaRequest->reveal()
-        );
-        $setAlexaRequestMethod->shouldBeCalled();
-
-        /** @var MethodProphecy $setCertificateValidatorMethod */
-        $setCertificateValidatorMethod = $helloApplication
-            ->setCertificateValidator(
-                $certificateValidator->reveal()
-            );
-        $setCertificateValidatorMethod->shouldBeCalled();
 
         /** @var MethodProphecy $executeMethod */
         $executeMethod = $helloApplication->execute();

@@ -2,23 +2,19 @@
 /**
  * PHP skeleton application for Amazon Alexa Skills
  *
- * @author     Ralf Eggert <ralf@travello.de>
+ * @author     Ralf Eggert <ralf@travello.audio>
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  * @link       https://github.com/travello-gmbh/amazon-alexa-skill-skeleton
- * @link       https://www.travello.de/
+ * @link       https://www.travello.audio/
  */
 
 namespace Hello;
 
-use Hello\Action\PrivacyAction;
-use Hello\Action\PrivacyActionFactory;
-use Hello\Action\HelloAction;
-use Hello\Action\HelloActionFactory;
-use Hello\Application\Helper\HelloTextHelper;
-use Hello\Application\Helper\HelloTextHelperFactory;
 use Hello\Application\HelloApplication;
-use Hello\Application\HelloApplicationFactory;
 use Hello\Config\RouterDelegatorFactory;
+use Hello\Intent\HelloIntent;
+use TravelloAlexaZf\Application\AlexaApplicationFactory;
+use TravelloAlexaZf\Intent\AbstractIntentFactory;
 use Zend\Expressive\Application;
 
 /**
@@ -36,6 +32,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'skills'       => $this->getSkills(),
         ];
     }
 
@@ -51,11 +48,7 @@ class ConfigProvider
                 ],
             ],
             'factories'  => [
-                HelloAction::class => HelloActionFactory::class,
-                PrivacyAction::class => PrivacyActionFactory::class,
-
-                HelloApplication::class => HelloApplicationFactory::class,
-                HelloTextHelper::class  => HelloTextHelperFactory::class,
+                HelloApplication::class => AlexaApplicationFactory::class,
             ],
         ];
     }
@@ -69,6 +62,35 @@ class ConfigProvider
             'paths' => [
                 'hello' => [__DIR__ . '/../templates/hello'],
             ],
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getSkills(): array
+    {
+        return [
+            HelloApplication::NAME => [
+                'applicationId'    => 'amzn1.ask.skill.place-your-skill-id-here',
+                'applicationClass' => HelloApplication::class,
+                'smallImageUrl'    => 'https://www.travello.audio/cards/hello-480x480.png',
+                'largeImageUrl'    => 'https://www.travello.audio/cards/hello-800x800.png',
+                'intents'          => [
+                    'aliases' => [
+                        HelloIntent::NAME => HelloIntent::class,
+                    ],
+
+                    'factories' => [
+                        HelloIntent::class => AbstractIntentFactory::class,
+                    ],
+                ],
+                'texts'            => [
+                    'de-DE' => include PROJECT_ROOT . '/data/texts/hello.common.texts.de-DE.php',
+                    'en-UK' => include PROJECT_ROOT . '/data/texts/hello.common.texts.en-UK.php',
+                    'en-US' => include PROJECT_ROOT . '/data/texts/hello.common.texts.en-US.php',
+                ],
+            ]
         ];
     }
 }

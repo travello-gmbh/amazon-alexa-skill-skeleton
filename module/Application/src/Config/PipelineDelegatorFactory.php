@@ -2,17 +2,20 @@
 /**
  * PHP skeleton application for Amazon Alexa Skills
  *
- * @author     Ralf Eggert <ralf@travello.de>
+ * @author     Ralf Eggert <ralf@travello.audio>
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  * @link       https://github.com/travello-gmbh/amazon-alexa-skill-skeleton
- * @link       https://www.travello.de/
+ * @link       https://www.travello.audio/
  */
 
 namespace Application\Config;
 
 use Interop\Container\ContainerInterface;
-use TravelloAlexaLibrary\Middleware\InjectAlexaRequestMiddleware;
-use TravelloAlexaLibrary\Middleware\InjectCertificateValidatorMiddleware;
+use TravelloAlexaZf\Middleware\CheckApplicationMiddleware;
+use TravelloAlexaZf\Middleware\ConfigureSkillMiddleware;
+use TravelloAlexaZf\Middleware\LogAlexaRequestMiddleware;
+use TravelloAlexaZf\Middleware\SetLocaleMiddleware;
+use TravelloAlexaZf\Middleware\ValidateCertificateMiddleware;
 use Zend\Expressive\Application;
 use Zend\Expressive\Middleware\ImplicitHeadMiddleware;
 use Zend\Expressive\Middleware\ImplicitOptionsMiddleware;
@@ -44,10 +47,13 @@ class PipelineDelegatorFactory implements DelegatorFactoryInterface
         $application->pipe(OriginalMessages::class);
 
         $application->pipe(ErrorHandler::class);
-        $application->pipe(InjectAlexaRequestMiddleware::class);
-        $application->pipe(InjectCertificateValidatorMiddleware::class);
 
         $application->pipeRoutingMiddleware();
+        $application->pipe(ConfigureSkillMiddleware::class);
+        $application->pipe(LogAlexaRequestMiddleware::class);
+        $application->pipe(CheckApplicationMiddleware::class);
+        $application->pipe(ValidateCertificateMiddleware::class);
+        $application->pipe(SetLocaleMiddleware::class);
         $application->pipe(ImplicitHeadMiddleware::class);
         $application->pipe(ImplicitOptionsMiddleware::class);
         $application->pipeDispatchMiddleware();

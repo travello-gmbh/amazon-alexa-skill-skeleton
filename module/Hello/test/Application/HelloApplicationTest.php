@@ -2,21 +2,26 @@
 /**
  * PHP skeleton application for Amazon Alexa Skills
  *
- * @author     Ralf Eggert <ralf@travello.de>
+ * @author     Ralf Eggert <ralf@travello.audio>
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  * @link       https://github.com/travello-gmbh/amazon-alexa-skill-skeleton
- * @link       https://www.travello.de/
+ * @link       https://www.travello.audio/
  */
 
 namespace HelloTest\Application;
 
 use Hello\Application\HelloApplication;
-use Hello\Application\Helper\HelloTextHelper;
+use Hello\Intent\HelloIntent;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\MethodProphecy;
 use Prophecy\Prophecy\ObjectProphecy;
-use TravelloAlexaLibrary\Request\Certificate\CertificateValidatorInterface;
+use Psr\Container\ContainerInterface;
+use TravelloAlexaLibrary\Configuration\SkillConfigurationInterface;
+use TravelloAlexaLibrary\Intent\HelpIntent;
+use TravelloAlexaLibrary\Intent\StopIntent;
 use TravelloAlexaLibrary\Request\RequestType\RequestTypeFactory;
+use TravelloAlexaLibrary\Response\AlexaResponse;
+use TravelloAlexaLibrary\TextHelper\TextHelper;
 
 /**
  * Class HelloApplicationTest
@@ -55,35 +60,37 @@ class HelloApplicationTest extends TestCase
             ],
         ];
 
-        $alexaRequest = RequestTypeFactory::createFromData(json_encode($data));
+        $alexaRequest  = RequestTypeFactory::createFromData(json_encode($data));
+        $alexaResponse = new AlexaResponse();
+        $textHelper    = new TextHelper();
 
-        /** @var CertificateValidatorInterface|ObjectProphecy $certificateValidator */
-        $certificateValidator = $this->prophesize(
-            CertificateValidatorInterface::class
-        );
+        /** @var ContainerInterface|ObjectProphecy $intentManager */
+        $intentManager = $this->prophesize(ContainerInterface::class);
 
-        /** @var MethodProphecy $validateMethod */
-        $validateMethod = $certificateValidator->validate();
-        $validateMethod->shouldBeCalled()->willReturn(true);
+        /** @var MethodProphecy $hasMethod */
+        $hasMethod = $intentManager->has(HelloIntent::NAME);
+        $hasMethod->shouldBeCalled()->willReturn(true);
 
-        /** @var ObjectProphecy|HelloTextHelper $helloTextHelper */
-        $helloTextHelper = $this->prophesize(HelloTextHelper::class);
-        $helloTextHelper->setLocale('de-DE')->shouldBeCalled();
-        $helloTextHelper->getRepromptMessage()->shouldBeCalled()->willReturn(
-            'reprompt message'
-        );
-        $helloTextHelper->getHelloMessage()->shouldBeCalled()->willReturn(
-            'greet message'
-        );
-        $helloTextHelper->getHelloTitle()->shouldBeCalled()->willReturn(
-            'greet title'
-        );
+        /** @var MethodProphecy $getMethod */
+        $getMethod = $intentManager->get(HelloIntent::NAME);
+        $getMethod->shouldBeCalled()->willReturn(new HelloIntent($alexaRequest, $alexaResponse, $textHelper));
+
+        $skillConfiguration = $this->prophesize(SkillConfigurationInterface::class);
+
+        /** @var MethodProphecy $getSmallImageUrlMethod */
+        $getSmallImageUrlMethod = $skillConfiguration->getSmallImageUrl();
+        $getSmallImageUrlMethod->shouldBeCalled()->willReturn('https://www.travello.audio/cards/hello-480x480.png');
+
+        /** @var MethodProphecy $getLargeImageUrlMethod */
+        $getLargeImageUrlMethod = $skillConfiguration->getLargeImageUrl();
+        $getLargeImageUrlMethod->shouldBeCalled()->willReturn('https://www.travello.audio/cards/hello-800x800.png');
 
         $application = new HelloApplication(
-            $helloTextHelper->reveal()
+            $alexaRequest,
+            $alexaResponse,
+            $intentManager->reveal(),
+            $skillConfiguration->reveal()
         );
-        $application->setAlexaRequest($alexaRequest);
-        $application->setCertificateValidator($certificateValidator->reveal());
 
         $result = $application->execute();
 
@@ -93,21 +100,15 @@ class HelloApplicationTest extends TestCase
             'response'          => [
                 'outputSpeech'     => [
                     'type' => 'SSML',
-                    'ssml' => '<speak>greet message</speak>',
+                    'ssml' => '<speak>helloMessage</speak>',
                 ],
                 'card'             => [
                     'type'  => 'Standard',
-                    'title' => 'greet title',
-                    'text'  => 'greet message',
+                    'title' => 'helloTitle',
+                    'text'  => 'helloMessage',
                     'image' => [
                         'smallImageUrl' => 'https://www.travello.audio/cards/hello-480x480.png',
                         'largeImageUrl' => 'https://www.travello.audio/cards/hello-800x800.png',
-                    ],
-                ],
-                'reprompt'         => [
-                    'outputSpeech' => [
-                        'type' => 'SSML',
-                        'ssml' => '<speak>reprompt message</speak>',
                     ],
                 ],
                 'shouldEndSession' => false,
@@ -147,35 +148,37 @@ class HelloApplicationTest extends TestCase
             ],
         ];
 
-        $alexaRequest = RequestTypeFactory::createFromData(json_encode($data));
+        $alexaRequest  = RequestTypeFactory::createFromData(json_encode($data));
+        $alexaResponse = new AlexaResponse();
+        $textHelper    = new TextHelper();
 
-        /** @var CertificateValidatorInterface|ObjectProphecy $certificateValidator */
-        $certificateValidator = $this->prophesize(
-            CertificateValidatorInterface::class
-        );
+        /** @var ContainerInterface|ObjectProphecy $intentManager */
+        $intentManager = $this->prophesize(ContainerInterface::class);
 
-        /** @var MethodProphecy $validateMethod */
-        $validateMethod = $certificateValidator->validate();
-        $validateMethod->shouldBeCalled()->willReturn(true);
+        /** @var MethodProphecy $hasMethod */
+        $hasMethod = $intentManager->has(HelpIntent::NAME);
+        $hasMethod->shouldBeCalled()->willReturn(true);
 
-        /** @var ObjectProphecy|HelloTextHelper $helloTextHelper */
-        $helloTextHelper = $this->prophesize(HelloTextHelper::class);
-        $helloTextHelper->setLocale('de-DE')->shouldBeCalled();
-        $helloTextHelper->getRepromptMessage()->shouldBeCalled()->willReturn(
-            'reprompt message'
-        );
-        $helloTextHelper->getHelpMessage()->shouldBeCalled()->willReturn(
-            'help message'
-        );
-        $helloTextHelper->getHelpTitle()->shouldBeCalled()->willReturn(
-            'help title'
-        );
+        /** @var MethodProphecy $getMethod */
+        $getMethod = $intentManager->get(HelpIntent::NAME);
+        $getMethod->shouldBeCalled()->willReturn(new HelpIntent($alexaRequest, $alexaResponse, $textHelper));
+
+        $skillConfiguration = $this->prophesize(SkillConfigurationInterface::class);
+
+        /** @var MethodProphecy $getSmallImageUrlMethod */
+        $getSmallImageUrlMethod = $skillConfiguration->getSmallImageUrl();
+        $getSmallImageUrlMethod->shouldBeCalled()->willReturn('https://www.travello.audio/cards/hello-480x480.png');
+
+        /** @var MethodProphecy $getLargeImageUrlMethod */
+        $getLargeImageUrlMethod = $skillConfiguration->getLargeImageUrl();
+        $getLargeImageUrlMethod->shouldBeCalled()->willReturn('https://www.travello.audio/cards/hello-800x800.png');
 
         $application = new HelloApplication(
-            $helloTextHelper->reveal()
+            $alexaRequest,
+            $alexaResponse,
+            $intentManager->reveal(),
+            $skillConfiguration->reveal()
         );
-        $application->setAlexaRequest($alexaRequest);
-        $application->setCertificateValidator($certificateValidator->reveal());
 
         $result = $application->execute();
 
@@ -185,12 +188,12 @@ class HelloApplicationTest extends TestCase
             'response'          => [
                 'outputSpeech'     => [
                     'type' => 'SSML',
-                    'ssml' => '<speak>help message</speak>',
+                    'ssml' => '<speak>helpMessage</speak>',
                 ],
                 'card'             => [
                     'type'  => 'Standard',
-                    'title' => 'help title',
-                    'text'  => 'help message',
+                    'title' => 'helpTitle',
+                    'text'  => 'helpMessage',
                     'image' => [
                         'smallImageUrl' => 'https://www.travello.audio/cards/hello-480x480.png',
                         'largeImageUrl' => 'https://www.travello.audio/cards/hello-800x800.png',
@@ -199,7 +202,7 @@ class HelloApplicationTest extends TestCase
                 'reprompt'         => [
                     'outputSpeech' => [
                         'type' => 'SSML',
-                        'ssml' => '<speak>reprompt message</speak>',
+                        'ssml' => '<speak>repromptMessage</speak>',
                     ],
                 ],
                 'shouldEndSession' => false,
@@ -239,35 +242,37 @@ class HelloApplicationTest extends TestCase
             ],
         ];
 
-        $alexaRequest = RequestTypeFactory::createFromData(json_encode($data));
+        $alexaRequest  = RequestTypeFactory::createFromData(json_encode($data));
+        $alexaResponse = new AlexaResponse();
+        $textHelper    = new TextHelper();
 
-        /** @var CertificateValidatorInterface|ObjectProphecy $certificateValidator */
-        $certificateValidator = $this->prophesize(
-            CertificateValidatorInterface::class
-        );
+        /** @var ContainerInterface|ObjectProphecy $intentManager */
+        $intentManager = $this->prophesize(ContainerInterface::class);
 
-        /** @var MethodProphecy $validateMethod */
-        $validateMethod = $certificateValidator->validate();
-        $validateMethod->shouldBeCalled()->willReturn(true);
+        /** @var MethodProphecy $hasMethod */
+        $hasMethod = $intentManager->has(StopIntent::NAME);
+        $hasMethod->shouldBeCalled()->willReturn(true);
 
-        /** @var ObjectProphecy|HelloTextHelper $helloTextHelper */
-        $helloTextHelper = $this->prophesize(HelloTextHelper::class);
-        $helloTextHelper->setLocale('de-DE')->shouldBeCalled();
-        $helloTextHelper->getRepromptMessage()->shouldBeCalled()->willReturn(
-            'reprompt message'
-        );
-        $helloTextHelper->getStopMessage()->shouldBeCalled()->willReturn(
-            'stop message'
-        );
-        $helloTextHelper->getStopTitle()->shouldBeCalled()->willReturn(
-            'stop title'
-        );
+        /** @var MethodProphecy $getMethod */
+        $getMethod = $intentManager->get(StopIntent::NAME);
+        $getMethod->shouldBeCalled()->willReturn(new StopIntent($alexaRequest, $alexaResponse, $textHelper));
+
+        $skillConfiguration = $this->prophesize(SkillConfigurationInterface::class);
+
+        /** @var MethodProphecy $getSmallImageUrlMethod */
+        $getSmallImageUrlMethod = $skillConfiguration->getSmallImageUrl();
+        $getSmallImageUrlMethod->shouldBeCalled()->willReturn('https://www.travello.audio/cards/hello-480x480.png');
+
+        /** @var MethodProphecy $getLargeImageUrlMethod */
+        $getLargeImageUrlMethod = $skillConfiguration->getLargeImageUrl();
+        $getLargeImageUrlMethod->shouldBeCalled()->willReturn('https://www.travello.audio/cards/hello-800x800.png');
 
         $application = new HelloApplication(
-            $helloTextHelper->reveal()
+            $alexaRequest,
+            $alexaResponse,
+            $intentManager->reveal(),
+            $skillConfiguration->reveal()
         );
-        $application->setAlexaRequest($alexaRequest);
-        $application->setCertificateValidator($certificateValidator->reveal());
 
         $result = $application->execute();
 
@@ -277,21 +282,15 @@ class HelloApplicationTest extends TestCase
             'response'          => [
                 'outputSpeech'     => [
                     'type' => 'SSML',
-                    'ssml' => '<speak>stop message</speak>',
+                    'ssml' => '<speak>stopMessage</speak>',
                 ],
                 'card'             => [
                     'type'  => 'Standard',
-                    'title' => 'stop title',
-                    'text'  => 'stop message',
+                    'title' => 'stopTitle',
+                    'text'  => 'stopMessage',
                     'image' => [
                         'smallImageUrl' => 'https://www.travello.audio/cards/hello-480x480.png',
                         'largeImageUrl' => 'https://www.travello.audio/cards/hello-800x800.png',
-                    ],
-                ],
-                'reprompt'         => [
-                    'outputSpeech' => [
-                        'type' => 'SSML',
-                        'ssml' => '<speak>reprompt message</speak>',
                     ],
                 ],
                 'shouldEndSession' => true,

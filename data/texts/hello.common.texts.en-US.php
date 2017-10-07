@@ -2,22 +2,22 @@
 /**
  * PHP skeleton application for Amazon Alexa Skills
  *
- * @author     Ralf Eggert <ralf@travello.de>
+ * @author     Ralf Eggert <ralf@travello.audio>
  * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
  * @link       https://github.com/travello-gmbh/amazon-alexa-skill-skeleton
- * @link       https://www.travello.de/
+ * @link       https://www.travello.audio/
  */
 
 return [
-    'alexaLaunchTitle'     => 'Hello',
-    'alexaLaunchMessage'   => 'Hello and Welcome',
-    'alexaRepromptMessage' => 'Reprompt',
-    'alexaHelpTitle'       => 'Help',
-    'alexaHelpMessage'     => 'Here place your help text',
-    'alexaStopTitle'       => 'Thanks',
-    'alexaStopMessage'     => 'Thanks and see you soon',
-    'alexaCancelTitle'     => 'Cancel',
-    'alexaCancelMessage'   => 'Cancel message',
-    'alexaHelloTitle'      => 'Hello this is the title',
-    'alexaHelloMessage'    => 'Hello this is the message for the hello intent.',
+    'launchTitle'     => 'Hello',
+    'launchMessage'   => 'Hello and Welcome',
+    'repromptMessage' => 'Reprompt',
+    'helpTitle'       => 'Help',
+    'helpMessage'     => 'Here place your help text',
+    'stopTitle'       => 'Thanks',
+    'stopMessage'     => 'Thanks and see you soon',
+    'cancelTitle'     => 'Cancel',
+    'cancelMessage'   => 'Cancel message',
+    'helloTitle'      => 'Hello this is the title',
+    'helloMessage'    => 'Hello this is the message for the hello intent.',
 ];
