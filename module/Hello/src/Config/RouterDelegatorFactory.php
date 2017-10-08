@@ -10,7 +10,7 @@
 
 namespace Hello\Config;
 
-use Hello\Application\HelloApplication;
+use Hello\ConfigProvider;
 use Interop\Container\ContainerInterface;
 use TravelloAlexaZf\Action\HtmlPageAction;
 use TravelloAlexaZf\Action\SkillAction;
@@ -38,7 +38,7 @@ class RouterDelegatorFactory implements DelegatorFactoryInterface
         $application = $callback();
 
         $application->post('/hello', SkillAction::class, 'hello')
-            ->setOptions(['defaults' => ['skillName' => HelloApplication::NAME]]);
+            ->setOptions(['defaults' => ['skillName' => ConfigProvider::NAME]]);
 
         $application->get('/hello/privacy', HtmlPageAction::class, 'hello-privacy')
             ->setOptions(['defaults' => ['template' => 'hello::privacy']]);

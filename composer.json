@@ -10,7 +10,7 @@
   "require": {
     "php": "^7.0",
     "roave/security-advisories": "dev-master",
-    "travello-gmbh/amazon-alexa-skill-zf": "^2.0.0",
+    "travello-gmbh/amazon-alexa-skill-zf": "^2.1.0",
     "zendframework/zend-component-installer": "^1.0 || ^0.7.0",
     "zendframework/zend-config-aggregator": "^0.2.0",
     "zendframework/zend-expressive": "^2.0",

@@ -10,10 +10,9 @@
 
 namespace Hello;
 
-use Hello\Application\HelloApplication;
 use Hello\Config\RouterDelegatorFactory;
 use Hello\Intent\HelloIntent;
-use TravelloAlexaZf\Application\AlexaApplicationFactory;
+use TravelloAlexaLibrary\Application\AlexaApplication;
 use TravelloAlexaZf\Intent\AbstractIntentFactory;
 use Zend\Expressive\Application;
 
@@ -24,6 +23,9 @@ use Zend\Expressive\Application;
  */
 class ConfigProvider
 {
+    /** Name of skill for configuration */
+    const NAME = 'hello-skill';
+
     /**
      * @return array
      */
@@ -47,9 +49,6 @@ class ConfigProvider
                     RouterDelegatorFactory::class,
                 ],
             ],
-            'factories'  => [
-                HelloApplication::class => AlexaApplicationFactory::class,
-            ],
         ];
     }
 
@@ -71,9 +70,12 @@ class ConfigProvider
     public function getSkills(): array
     {
         return [
-            HelloApplication::NAME => [
+            self::NAME => [
                 'applicationId'    => 'amzn1.ask.skill.place-your-skill-id-here',
-                'applicationClass' => HelloApplication::class,
+                'applicationClass' => AlexaApplication::class,
+                'sessionDefaults'  => [
+                    'count' => 0,
+                ],
                 'smallImageUrl'    => 'https://www.travello.audio/cards/hello-480x480.png',
                 'largeImageUrl'    => 'https://www.travello.audio/cards/hello-800x800.png',
                 'intents'          => [

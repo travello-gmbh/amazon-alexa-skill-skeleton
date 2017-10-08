@@ -34,8 +34,14 @@ class HelloIntent extends AbstractIntent
         string $smallImageUrl,
         string $largeImageUrl
     ): AlexaResponse {
+        $sessionContainer = $this->getAlexaResponse()->getSessionContainer();
+
+        $count = $sessionContainer->getAttribute('count') + 1;
+
+        $sessionContainer->setAttribute('count', $count);
+
         $title   = $this->getTextHelper()->getHelloTitle();
-        $message = $this->getTextHelper()->getHelloMessage();
+        $message = $this->getTextHelper()->getHelloMessage() . ' (' . $count . ')';
 
         $this->getAlexaResponse()->setOutputSpeech(
             new SSML($message)
