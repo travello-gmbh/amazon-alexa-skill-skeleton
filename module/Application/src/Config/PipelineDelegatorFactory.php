@@ -23,6 +23,7 @@ use Zend\Expressive\Middleware\NotFoundHandler;
 use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
 use Zend\Stratigility\Middleware\ErrorHandler;
 use Zend\Stratigility\Middleware\OriginalMessages;
+use Zend\Stratigility\MiddlewareInterface;
 
 /**
  * Class PipelineDelegatorFactory
