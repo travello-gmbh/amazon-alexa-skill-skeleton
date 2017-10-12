@@ -13,6 +13,7 @@ namespace Hello;
 use Hello\Config\RouterDelegatorFactory;
 use Hello\Intent\HelloIntent;
 use TravelloAlexaLibrary\Application\AlexaApplication;
+use TravelloAlexaLibrary\TextHelper\TextHelper;
 use TravelloAlexaZf\Intent\AbstractIntentFactory;
 use Zend\Expressive\Application;
 
@@ -73,6 +74,7 @@ class ConfigProvider
             self::NAME => [
                 'applicationId'    => 'amzn1.ask.skill.place-your-skill-id-here',
                 'applicationClass' => AlexaApplication::class,
+                'textHelperClass'  => TextHelper::class,
                 'sessionDefaults'  => [
                     'count' => 0,
                 ],
