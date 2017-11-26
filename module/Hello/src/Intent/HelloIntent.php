@@ -25,20 +25,18 @@ class HelloIntent extends AbstractIntent
     const NAME = 'HelloIntent';
 
     /**
-     * @param string $smallImageUrl
-     * @param string $largeImageUrl
-     *
      * @return AlexaResponse
      */
-    public function handle(
-        string $smallImageUrl,
-        string $largeImageUrl
-    ): AlexaResponse {
+    public function handle(): AlexaResponse
+    {
         $sessionContainer = $this->getAlexaResponse()->getSessionContainer();
 
         $count = $sessionContainer->getAttribute('count') + 1;
 
         $sessionContainer->setAttribute('count', $count);
+
+        $smallImageUrl = $this->getSkillConfiguration()->getSmallImageUrl();
+        $largeImageUrl = $this->getSkillConfiguration()->getLargeImageUrl();
 
         $title   = $this->getTextHelper()->getHelloTitle();
         $message = $this->getTextHelper()->getHelloMessage() . ' (' . $count . ')';
