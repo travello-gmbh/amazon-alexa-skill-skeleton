@@ -12,6 +12,7 @@ namespace HelloTest\Intent;
 
 use Hello\Intent\HelloIntent;
 use PHPUnit\Framework\TestCase;
+use TravelloAlexaLibrary\Configuration\SkillConfiguration;
 use TravelloAlexaLibrary\Intent\AbstractIntent;
 use TravelloAlexaLibrary\Intent\IntentInterface;
 use TravelloAlexaLibrary\Request\RequestType\RequestTypeFactory;
@@ -50,11 +51,12 @@ class HelloIntentTest extends TestCase
             ],
         ];
 
-        $alexaRequest  = RequestTypeFactory::createFromData(json_encode($data));
-        $alexaResponse = new AlexaResponse();
-        $textHelper    = new TextHelper();
+        $alexaRequest       = RequestTypeFactory::createFromData(json_encode($data));
+        $alexaResponse      = new AlexaResponse();
+        $textHelper         = new TextHelper();
+        $skillConfiguration = new SkillConfiguration();
 
-        $helloIntent = new HelloIntent($alexaRequest, $alexaResponse, $textHelper);
+        $helloIntent = new HelloIntent($alexaRequest, $alexaResponse, $textHelper, $skillConfiguration);
 
         $this->assertTrue($helloIntent instanceof AbstractIntent);
         $this->assertTrue($helloIntent instanceof IntentInterface);
@@ -94,16 +96,18 @@ class HelloIntentTest extends TestCase
 
         $sessionContainer = new SessionContainer(['foo' => 'bar', 'count' => 17,]);
 
-        $alexaRequest  = RequestTypeFactory::createFromData(json_encode($data));
-        $textHelper    = new TextHelper();
+        $alexaRequest = RequestTypeFactory::createFromData(json_encode($data));
+        $textHelper   = new TextHelper();
+
         $alexaResponse = new AlexaResponse();
         $alexaResponse->setSessionContainer($sessionContainer);
 
-        $smallImageUrl = 'https://image.server/small.png';
-        $largeImageUrl = 'https://image.server/large.png';
+        $skillConfiguration = new SkillConfiguration();
+        $skillConfiguration->setSmallImageUrl('https://image.server/small.png');
+        $skillConfiguration->setLargeImageUrl('https://image.server/large.png');
 
-        $helloIntent = new HelloIntent($alexaRequest, $alexaResponse, $textHelper);
-        $helloIntent->handle($smallImageUrl, $largeImageUrl);
+        $helloIntent = new HelloIntent($alexaRequest, $alexaResponse, $textHelper, $skillConfiguration);
+        $helloIntent->handle();
 
         $expected = [
             'version'           => '1.0',
