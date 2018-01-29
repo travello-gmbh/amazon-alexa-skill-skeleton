@@ -1,7 +1,7 @@
 {
   "name": "travello-gmbh/amazon-alexa-skill-skeleton",
   "description": "PHP skeleton application for Amazon Alexa Skills based on Zend\\Expressive",
-  "license": "The MIT License (MIT)",
+  "license": "MIT",
   "type": "project",
   "homepage": "https://www.travello.audio",
   "config": {
@@ -10,7 +10,6 @@
   "require": {
     "php": "^7.0",
     "http-interop/http-middleware": "^0.4.1",
-    "roave/security-advisories": "dev-master",
     "travello-gmbh/amazon-alexa-skill-zf": "^2.1.0",
     "zendframework/zend-component-installer": "^1.0 || ^0.7.0",
     "zendframework/zend-config-aggregator": "^0.2.0",
