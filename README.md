@@ -1,3 +1,7 @@
+# DEPRECATED
+
+This project is deprecated. Please move to https://github.com/phoice/phlexa-expressive-skeleton
+
 # PHP skeleton application for Amazon Alexa Skills
 
 With this PHP skeleton application you can easily setup your own PHP based Amazon Alexa 
